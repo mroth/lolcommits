@@ -1,8 +1,12 @@
+require 'methadone'
+
 module Lolcommits
   #
   # Methods to handle enabling and disabling of lolcommits
   #
   class Installation
+    include Methadone::CLILogging
+
     def self.backend
       if GitInfo.repo_root?
         InstallationGit

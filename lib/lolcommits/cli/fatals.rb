@@ -6,6 +6,7 @@ module Lolcommits
     # Helper methods for failing on error conditions in the lolcommits CLI.
     module Fatals
       include Lolcommits
+      include Methadone::CLILogging
 
       # Check for platform related conditions that could prevent lolcommits from
       # working properly.

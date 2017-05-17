@@ -15,11 +15,6 @@ Lint/AmbiguousBlockAssociation:
 Metrics/AbcSize:
   Max: 37
 
-# Offense count: 2
-# Configuration parameters: CountComments, ExcludedMethods.
-Metrics/BlockLength:
-  Max: 40
-
 # Offense count: 5
 # Configuration parameters: CountComments.
 Metrics/ClassLength:

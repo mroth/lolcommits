@@ -1,5 +1,4 @@
 require 'aruba/cucumber'
-require 'methadone/cucumber'
 require 'open3'
 require 'ffaker'
 require 'fileutils'

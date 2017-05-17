@@ -1,6 +1,10 @@
+require 'methadone'
+
 module Lolcommits
   module Plugin
     class Base
+      include Methadone::CLILogging
+
       attr_accessor :runner, :options
 
       def initialize(runner)

@@ -41,7 +41,7 @@ Feature: Bug regression testing
   #
   @fake-no-imagemagick
   Scenario: gracefully fail when imagemagick is not installed
-    When I run `lolcommits`
+    When I run `lolcommits enable`
     Then the output should contain:
       """
       ImageMagick does not appear to be properly installed
@@ -54,7 +54,7 @@ Feature: Bug regression testing
   Scenario: catch upstream bug with ruby-git and color=always
     Given I am in a git repo named "whatev" with lolcommits enabled
     And I successfully run `git config color.ui always`
-    When I run `lolcommits`
+    When I run `lolcommits enable`
     Then the output should contain:
       """
       Due to a bug in the ruby-git library, git config for color.ui cannot be set to 'always'.

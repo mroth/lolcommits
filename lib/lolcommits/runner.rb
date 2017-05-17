@@ -1,7 +1,11 @@
+require 'methadone'
+
 require 'lolcommits/platform'
 
 module Lolcommits
   class Runner
+    include Methadone::CLILogging
+
     attr_accessor :capture_delay, :capture_stealth, :capture_device, :message,
                   :sha, :snapshot_loc, :main_image, :config, :vcs_info,
                   :capture_animate

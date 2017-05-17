@@ -1,8 +1,12 @@
+require 'methadone'
+
 module Lolcommits
   #
   # Methods to handle enabling and disabling of lolcommits
   #
   class InstallationGit
+    include Methadone::CLILogging
+
     HOOK_PATH = File.join '.git', 'hooks', 'post-commit'
     HOOK_DIR = File.join '.git', 'hooks'
 
@@ -60,7 +64,7 @@ module Lolcommits
     def self.hook_script(capture_args = '')
       ruby_path     = Lolcommits::Platform.command_which('ruby', true)
       imagick_path  = Lolcommits::Platform.command_which('identify', true)
-      capture_cmd   = "if [ ! -d \"$GIT_DIR/rebase-merge\" ] && [ \"$LOLCOMMITS_CAPTURE_DISABLED\" != \"true\" ]; then lolcommits --capture #{capture_args}; fi"
+      capture_cmd   = "if [ ! -d \"$GIT_DIR/rebase-merge\" ] && [ \"$LOLCOMMITS_CAPTURE_DISABLED\" != \"true\" ]; then lolcommits capture #{capture_args}; fi"
       exports       = "LANG=\"#{ENV['LANG']}\" && PATH=\"#{ruby_path}:#{imagick_path}:$PATH\""
 
       if Lolcommits::Platform.platform_windows?

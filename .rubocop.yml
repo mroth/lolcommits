@@ -2,5 +2,13 @@ AllCops:
   Exclude:
     - vendor/bundle/**/*
     - .bundle/**/*
+  TargetRubyVersion: 2.0
+  DisplayCopNames: true
+  DisplayStyleGuide: true
 
+Metrics/BlockLength:
+  Exclude:
+    - lolcommits.gemspec
+
+# rules we broke in the past
 inherit_from: .rubocop_todo.yml

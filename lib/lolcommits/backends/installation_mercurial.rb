@@ -1,8 +1,12 @@
+require 'methadone'
+
 module Lolcommits
   #
   # Methods to handle enabling and disabling of lolcommits
   #
   class InstallationMercurial
+    include Methadone::CLILogging
+
     HOOK_SECTION = 'hooks'.freeze
     HOOK_OPERATIONS = %w(commit record crecord).freeze
 
@@ -40,7 +44,7 @@ module Lolcommits
     def self.hook_script(capture_args = '')
       ruby_path     = Lolcommits::Platform.command_which('ruby', true)
       imagick_path  = Lolcommits::Platform.command_which('identify', true)
-      capture_cmd   = "if [ \"$LOLCOMMITS_CAPTURE_DISABLED\" != \"true\" ]; then lolcommits --capture #{capture_args}; fi"
+      capture_cmd   = "if [ \"$LOLCOMMITS_CAPTURE_DISABLED\" != \"true\" ]; then lolcommits capture #{capture_args}; fi"
       exports       = "LANG=\"#{ENV['LANG']}\" && PATH=\"#{ruby_path}:#{imagick_path}:$PATH\""
 
       if Lolcommits::Platform.platform_windows?

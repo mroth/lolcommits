@@ -46,7 +46,7 @@ end
 Given(/^I am in a git repo named "(.*?)" with lolcommits enabled$/) do |repo|
   steps %(
     Given I am in a git repo named "#{repo}"
-    And I successfully run `lolcommits --enable`
+    And I successfully run `lolcommits enable`
     )
 end
 
@@ -67,7 +67,7 @@ end
 
 Then(/^the lolcommits git post\-commit hook should be properly installed$/) do
   steps %(
-    Then the git post-commit hook should contain "lolcommits --capture"
+    Then the git post-commit hook should contain "lolcommits capture"
     )
 end
 
@@ -99,7 +99,7 @@ end
 Given(/^I am in a mercurial repo named "(.*?)" with lolcommits enabled$/) do |repo|
   steps %(
     Given I am in a mercurial repo named "#{repo}"
-    And I successfully run `lolcommits --enable`
+    And I successfully run `lolcommits enable`
     )
 end
 
@@ -120,7 +120,7 @@ end
 
 Then(/^the lolcommits mercurial post\-commit hook should be properly installed$/) do
   steps %(
-    Then the mercurial post-commit hook should contain "lolcommits --capture"
+    Then the mercurial post-commit hook should contain "lolcommits capture"
     )
 end
 
@@ -220,4 +220,12 @@ end
 When(/^I wait for the child process to exit in "(.*?)"$/) do |repo_name|
   pid_loc = absolute_path("~/.lolcommits/#{repo_name}/lolcommits.pid")
   sleep 0.1 while File.exist?(pid_loc)
+end
+
+Then(/^the output should not contain any lines longer than (\d+)$/) do |n|
+  all_output.each_line do |l|
+    line = l.chomp
+    length = line.size
+    expect(length).to be <= n.to_i, "output line of length #{length} was longer than #{n}: [#{line}]"
+  end
 end
