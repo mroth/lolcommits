@@ -66,6 +66,8 @@ class App
           TimelapseGif.new(config).run(options[:period])
         elsif options[:config]
           config.do_configure!(options[:plugin])
+        elsif options[:'config-global']
+          config.do_global_configure!(options[:plugin])
         elsif options[:capture]
           capture_lolcommit(config)
         end
@@ -79,6 +81,8 @@ class App
   on('--devices', 'list available capture devices (mac only)')
   on('--plugins', 'list all available plugins')
   on('--config', 'configure a plugin')
+  on('--config-global', 'configure global configuration')
+
   on('-p', '--plugin {name}', 'plugin name to use with --config')
 
   on('-c', '--capture', 'capture lolcommit based on last git commit')

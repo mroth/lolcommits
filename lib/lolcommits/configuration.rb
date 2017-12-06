@@ -12,10 +12,14 @@ module Lolcommits
     end
 
     def read_configuration
-      return unless File.exist?(configuration_file)
       # TODO: change to safe_load when Ruby 2.0.0 support drops
       # YAML.safe_load(File.open(configuration_file), [Symbol])
-      YAML.load(File.open(configuration_file))
+      config = YAML.load(File.open(Lolcommits::Configuration.global_config))
+      if File.exist?(configuration_file)
+        config = config.merge(YAML.load(File.open(configuration_file)))
+      end
+
+      config
     end
 
     def configuration_file
@@ -86,6 +90,11 @@ module Lolcommits
       gets.strip
     end
 
+    def do_global_configure!(plugin_name)
+      @loldir = LOLCOMMITS_BASE
+      do_configure!(plugin_name)
+    end
+
     def do_configure!(plugin_name)
       $stdout.sync = true
 
@@ -118,6 +127,10 @@ module Lolcommits
     end
 
     # class methods
+
+    def self.global_config
+      File.join(LOLCOMMITS_BASE, 'config.yml')
+    end
 
     def self.loldir_for(basename)
       loldir = File.join(LOLCOMMITS_BASE, basename)
